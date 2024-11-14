@@ -1,9 +1,9 @@
 // src/UserProfile.jsx
-import React from "react";
+
 
 const UserProfile = () => {
   return (
-    <div className="flex flex-col items-center w-full h-full bg-gray-900 text-white p-8 overflow-y-auto">
+    <div className="flex flex-col items-center w-full h-full bg-zinc-900 text-white p-8 overflow-y-auto font-oswald">
       {/* Encabezado del Perfil */}
       <div className="flex items-center space-x-6 mb-8">
         <img
@@ -12,8 +12,8 @@ const UserProfile = () => {
           className="w-32 h-32 rounded-full border-4 border-green-500"
         />
         <div>
-          <div className="text-3xl font-semibold">R.SANTOS</div>
-          <div className="flex space-x-8 mt-4 text-gray-400">
+          <div className="text-4xl font-semibold text-green-500">R.SANTOS</div>
+          <div className="flex space-x-8 mt-4 text-gray-400 text-xl">
             <div>
               <span className="text-white font-bold">3</span> Publicaciones
             </div>
@@ -21,12 +21,12 @@ const UserProfile = () => {
               <span className="text-white font-bold">23 M</span> Seguidores
             </div>
             <div>
-              <span className="text-white font-bold">30</span> Seguidos
+              <span className="text-white font-bold ">30</span> Seguidos
             </div>
           </div>
           <div className="mt-4">
-            <h2 className="text-xl font-bold">Romeo Santos</h2>
-            <p className="text-gray-300">El chico de las poesías</p>
+            <h2 className="text-2xl font-bold">Romeo Santos</h2>
+            <p className="text-gray-300 text-xl">El chico de las poesías</p>
           </div>
         </div>
       </div>

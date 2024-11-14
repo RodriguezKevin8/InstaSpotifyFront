@@ -1,5 +1,5 @@
 // Layout.js
-import React from "react";
+
 import Sidebar from "./Sidebar";
 import Player from "./Player";
 import { Outlet } from "react-router-dom";

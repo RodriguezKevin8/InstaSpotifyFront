@@ -53,8 +53,8 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
+    <div className="flex items-center justify-center min-h-screen bg-zinc-900 text-white">
+      <div className="bg-zinc-800 p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-center text-green-500 mb-6">
           Crear Publicación
         </h2>
@@ -99,7 +99,7 @@ const CreatePost = () => {
 
           <button
             type="submit"
-            className="w-full p-3 mt-4 rounded bg-green-500 hover:bg-green-600 font-semibold transition duration-200"
+            className="w-full p-3 mt-4 rounded bg-green-500 text-black hover:bg-green-600 font-semibold transition duration-200"
           >
             Publicar
           </button>

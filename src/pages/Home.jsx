@@ -1,5 +1,5 @@
 // Home.js
-import React from "react";
+
 import Story from "../components/Stories";
 
 const posts = [
@@ -29,13 +29,13 @@ const posts = [
 
 const Home = () => {
   return (
-    <div className="flex flex-col items-center w-full h-full p-4 space-y-8 overflow-y-auto">
+    <div className="flex flex-col items-center w-full h-full p-4 space-y-8 overflow-y-auto-hidden ">
       <Story />
       {/* Publicaciones */}
       {posts.map((post) => (
         <div
           key={post.id}
-          className="w-full max-w-md bg-gray-800 rounded-lg shadow-lg"
+          className="w-full max-w-md bg-neutral-800 rounded-lg shadow-lg"
         >
           {/* Header de la Publicación */}
           <div className="flex items-center p-4">
@@ -45,7 +45,7 @@ const Home = () => {
               className="w-10 h-10 rounded-full"
             />
             <div className="ml-3">
-              <p className="text-sm font-semibold text-white">
+              <p className="text-sm font-semibold text-green-500">
                 {post.username}
               </p>
               <p className="text-xs text-gray-400">{post.timeAgo}</p>
@@ -56,7 +56,7 @@ const Home = () => {
           <img src={post.image} alt="Post" className="w-full rounded-b-lg" />
 
           {/* Interacciones */}
-          <div className="p-4">
+          <div className="p-4 font-oswald" >
             <div className="flex space-x-4 mb-2">
               <button className="text-white hover:text-red-500">❤️</button>
               <button className="text-white hover:text-blue-500">💬</button>

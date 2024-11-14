@@ -49,11 +49,11 @@ const CreatePlaylist = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white p-6">
+    <div className="flex flex-col items-center justify-center h-screen bg-zinc-900 text-green-500 p-6 font-oswald">
       <h2 className="text-3xl font-bold mb-6">Crear Nueva Playlist</h2>
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md space-y-6"
+        className="bg-zinc-800 p-8 rounded-lg shadow-lg w-full max-w-md space-y-6"
       >
         <div>
           <label
@@ -67,7 +67,7 @@ const CreatePlaylist = () => {
             id="playlistName"
             value={playlistName}
             onChange={(e) => setPlaylistName(e.target.value)}
-            className="w-full px-4 py-2 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full px-4 py-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
             required
           />
         </div>
@@ -85,14 +85,14 @@ const CreatePlaylist = () => {
             name="coverImage"
             accept="image/*"
             onChange={handleFileChange}
-            className="w-full px-4 py-2 bg-gray-700 rounded focus:outline-none"
+            className="w-full px-4 py-2 bg-zinc-700 rounded focus:outline-none"
             required
           />
         </div>
 
         <button
           type="submit"
-          className="w-full py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600 transition duration-200"
+          className="w-full py-2 bg-green-500 text-black font-semibold rounded hover:bg-green-600 transition duration-200"
         >
           Crear
         </button>

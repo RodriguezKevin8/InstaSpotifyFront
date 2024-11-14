@@ -52,13 +52,13 @@ const notificationsData = [
 
 const Notifications = () => {
   return (
-    <div className="flex flex-col items-center w-full p-8 space-y-4">
-      <h2 className="text-3xl font-bold text-green-500 mb-4">Notificaciones</h2>
-      <div className="w-full max-w-2xl space-y-4">
+    <div className="flex flex-col items-center w-full p-8 space-y-4 font-oswald">
+      <h2 className="text-5xl font-bold text-green-500 mb-4">Notificaciones</h2>
+      <div className="w-full max-w-3xl space-y-4">
         {notificationsData.map((notification, index) => (
           <div
             key={index}
-            className="flex items-center bg-gray-800 rounded-lg p-4 space-x-4"
+            className="flex items-center bg-zinc-800 rounded-lg p-4 space-x-4"
           >
             <img
               src={notification.profilePic}
@@ -66,11 +66,11 @@ const Notifications = () => {
               className="w-12 h-12 rounded-full"
             />
             <div className="flex flex-col flex-1">
-              <div className="text-sm text-gray-100">
+              <div className="text-lg text-green-500">
                 <span className="font-bold">{notification.username} </span>
                 <span>{notification.message}</span>
               </div>
-              <div className="text-xs text-gray-400">{notification.time}</div>
+              <div className="text-md text-gray-400">{notification.time}</div>
             </div>
             {/* Imagen de la publicación si es una notificación de tipo "like" o "comment" */}
             {(notification.type === "like" ||
@@ -83,7 +83,7 @@ const Notifications = () => {
             )}
             {/* Botón de seguir si es una notificación de tipo "follow" */}
             {notification.type === "follow" && (
-              <button className="text-sm font-semibold text-green-500 border border-green-500 rounded-lg px-4 py-1 hover:bg-green-500 hover:text-white transition">
+              <button className="text-lg font-semibold text-green-500 border border-green-500 rounded-lg px-4 py-1 hover:bg-green-500 hover:text-white transition">
                 Seguir
               </button>
             )}
