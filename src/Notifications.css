@@ -1,0 +1,103 @@
+/* src/Notifications.css */
+
+.notifications-page {
+	padding: 20px;
+	color: #ffffff;
+	height: 100vh; 
+	overflow-y: hidden; 
+	display: flex;
+	flex-direction: column;
+    margin-left: 220px;
+}
+
+.notifications-title {
+	font-size: 54px;
+	font-weight: bold;
+	color: #1db954;
+	margin-bottom: 20px;
+	font-family: "Oswald", sans-serif;
+}
+
+.notifications-list {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+	overflow-y: auto; 
+	height: calc(100vh - 100px);
+	padding-right: 10px; 
+}
+.notifications-list {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+}
+
+.notification-item {
+	display: flex;
+	align-items: center;
+	background-color: #1c1c1e;
+	padding: 30px;
+	border-radius: 8px;
+    width: 600px;
+    margin-left: 20px;
+}
+
+.notification-profile-pic {
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	margin-right: 15px;
+}
+
+.notification-content {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	
+}
+
+.notification-details {
+	display: flex;
+	align-items: center;
+}
+
+.notification-username {
+	font-weight: bold;
+	font-size: 16px;
+	color: #1db954;
+	margin-left: 20px;
+}
+
+.notification-message {
+	font-size: 14px;
+	color: #ffffff;
+	margin-left: 5px;
+	flex: 1;
+}
+
+.notification-time {
+	font-size: 12px;
+	color: #888888;
+	margin-left: auto;
+	padding-right: 20px;
+}
+
+.follow-button {
+	background-color: #1db954;
+	color: #ffffff;
+	border: none;
+	padding: 5px 15px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 14px;
+	margin-left: 25px;
+	margin-right: 25px;
+}
+
+
+.notification-thumbnail {
+	width: 100px;
+	height: 100px;
+	border-radius: 4px;
+	margin-left: 20px;
+}

@@ -1,0 +1,98 @@
+/* src/Profile.css */
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.profile-image {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+}
+
+.profile-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-username {
+  font-size: 30px;
+  font-weight: bold;
+  margin-right: 800px;
+  color: #1db954;
+}
+
+.profile-stats {
+  display: flex;
+  gap: 20px;
+  font-size: 16px;
+  color: #888;
+  margin-left: 100px;
+}
+
+.profile-stats span {
+  color: #fff;
+}
+
+.profile-name {
+  font-size: 18px;
+  margin-left: -500px;
+}
+
+.profile-bio {
+  font-size: 16px;
+  color: #888;
+}
+
+.profile-buttons {
+  display: flex;
+  gap: 10px;
+  margin-left: 220px;
+}
+
+.edit-button,
+.earnings-button {
+  background-color: #333;
+  color: #fff;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile-tabs {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  color: #1db954;
+  font-size: 18px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.tab-button.active {
+  border-bottom: 2px solid #1db954;
+}
+
+.profile-posts {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.post-thumbnail {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+}

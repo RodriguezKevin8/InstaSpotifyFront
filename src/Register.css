@@ -1,0 +1,43 @@
+/* src/Register.css */
+.register-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #1c1c1e;
+    color: #ffffff;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .register-container h2 {
+    color: #1db954;
+    margin-bottom: 20px;
+    font-family: 'Oswald', sans-serif;
+  }
+  
+  .register-container form input,
+  .register-container form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .register-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #1db954;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .register-container p {
+    margin-top: 10px;
+  }
+  

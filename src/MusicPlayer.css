@@ -1,0 +1,111 @@
+/* src/MusicPlayer.css */
+
+.music-player {
+    position: fixed;
+    bottom: 0;
+    left: 220px; /* Ajuste para no superponerse con la sidebar */
+    right: 0;
+    height: 95px;
+    background-color: #111;
+    color: #1db954;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 30px; /* Espaciado a los lados */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .song-info-and-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espacio entre la info de la canción y los controles */
+  }
+  
+  .song-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .song-info img {
+    width: 70px;
+    height: 70px;
+    border-radius: 4px;
+  }
+  
+  .song-info .title {
+    font-weight: bold;
+  }
+  
+  .song-info .artist {
+    font-size: 12px;
+    color: #888;
+  }
+  
+  .player-controls {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.control-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s;
+}
+
+.control-button:hover {
+    transform: scale(1.1);
+}
+
+.control-icon {
+    width: 20px;
+    height: 20px;
+}
+  
+  .progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre el tiempo y la barra */
+    width: 700px; /* Ajusta el largo total de la barra de progreso */
+  }
+  
+  .progress-bar input[type="range"] {
+    flex: 1;
+  }
+  
+  .time-stamp {
+    font-size: 11px;
+    color: #888;
+  }
+  
+  /* src/MusicPlayer.css */
+
+.progress-bar input[type="range"] {
+    flex: 1;
+    height: 10px; /* Ajusta esta altura para hacerla más delgada */
+    appearance: none;
+    background-color: #555; /* Color de fondo */
+    border-radius: 2px; /* Bordes redondeados */
+    outline: none;
+  }
+  
+  .progress-bar input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 12px; /* Tamaño del control de la barra */
+    height: 12px;
+    background-color: #1db954; /* Color del control */
+    border-radius: 50%; /* Forma redondeada */
+    cursor: pointer;
+  }
+  
+  .progress-bar input[type="range"]::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background-color: #1db954;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
