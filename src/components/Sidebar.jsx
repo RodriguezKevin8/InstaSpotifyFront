@@ -33,6 +33,34 @@ const Sidebar = () => {
           <span>My Music</span>
         </Link>
         <Link
+          to="/generos"
+          className="flex items-center py-3 px-4 text-green-500 hover:text-green-300"
+        >
+          <FaCompass className="mr-3" />
+          <span>Explorar musica</span>
+        </Link>
+        <Link
+          to="/add-canciones"
+          className="flex items-center py-3 px-4 text-green-500 hover:text-green-300"
+        >
+          <FaCompass className="mr-3" />
+          <span>Subir canciones</span>
+        </Link>
+        <Link
+          to="/album"
+          className="flex items-center py-3 px-4 text-green-500 hover:text-green-300"
+        >
+          <FaCompass className="mr-3" />
+          <span>Subir Album</span>
+        </Link>
+        <Link
+          to="/albums"
+          className="flex items-center py-3 px-4 text-green-500 hover:text-green-300"
+        >
+          <FaCompass className="mr-3" />
+          <span>Explorar Albumes</span>
+        </Link>
+        <Link
           to="/profile"
           className="flex items-center py-3 px-4 text-green-500 hover:text-green-300"
         >

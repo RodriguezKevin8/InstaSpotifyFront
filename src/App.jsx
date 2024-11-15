@@ -24,6 +24,7 @@ import GenreList from "./pages/GenreList.jsx";
 import AllSongs from "./pages/AllSongs.jsx";
 import AllAlbums from "./pages/AllAlbums.jsx";
 import AlbumDetail from "./pages/AlbumDetail.jsx";
+import UserEarnings from "./components/UserEarnings.jsx";
 import { PlayerProvider } from "./contexts/PlayerContext.jsx";
 import "./App.css";
 
@@ -63,6 +64,7 @@ function App() {
             <Route path="/albums" element={<AllAlbums />} />
             <Route path="/album/:albumId" element={<AlbumDetail />} />
             <Route path="/user/:userId" element={<UserProfile />} />
+            <Route path="/ganancias" element={<UserEarnings />} />
           </Route>
         )}
       </Routes>
