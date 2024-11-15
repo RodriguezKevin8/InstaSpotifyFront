@@ -52,7 +52,7 @@ const SearchPage = () => {
           ? searchResults.map((user) => (
               <div
                 key={user.id}
-                className="flex items-center mb-4 p-4 bg-gray-800 rounded-lg"
+                className="flex items-center mb-4 p-4 bg-zinc-700 rounded-lg"
               >
                 <img
                   src={user.perfil?.avatar_url || "/img/default-avatar.jpg"}
@@ -60,9 +60,11 @@ const SearchPage = () => {
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div>
-                  <h3 className="text-white font-semibold text-lg">
+                  <h3 className="font-semibold text-lg">
                     {console.log(user.id)}
-                    <Link to={`/user/${user.id}`}>{user.username}</Link>
+                    <Link to={`/user/${user.id}`} className="text-green-500">
+                      {user.username}
+                    </Link>
                   </h3>
                   <p className="text-gray-400">
                     {user.nombre} - {user.role}

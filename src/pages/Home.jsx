@@ -125,7 +125,7 @@ const Home = () => {
         {posts.map((post) => (
           <div
             key={post.id}
-            className="w-full max-w-md bg-gray-800 rounded-lg shadow-lg"
+            className="w-full max-w-md bg-zinc-800 rounded-lg shadow-lg"
           >
             <div className="flex items-center p-4">
               <img
@@ -188,7 +188,7 @@ const Home = () => {
 
         {isModalOpen && selectedPost && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-gray-800 rounded-lg max-w-lg w-full overflow-hidden">
+            <div className="bg-zinc-800 rounded-lg max-w-lg w-full overflow-hidden">
               <button
                 className="text-white absolute top-4 right-4"
                 onClick={closeModal}
@@ -241,12 +241,12 @@ const Home = () => {
                     value={commentText}
                     onChange={(e) => setCommentText(e.target.value)}
                     placeholder="Agregar un comentario..."
-                    className="flex-grow p-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none"
+                    className="flex-grow p-2 rounded-lg bg-zinc-800 text-white placeholder-gray-400 focus:outline-none"
                     required
                   />
                   <button
                     type="submit"
-                    className="bg-green-500 text-white px-4 py-1 rounded-lg hover:bg-green-600"
+                    className="bg-green-500 text-black px-4 py-1 rounded-lg hover:bg-green-600"
                   >
                     Enviar
                   </button>

@@ -236,7 +236,7 @@ const Profile = () => {
   return (
     <div className="flex flex-col items-center p-8 w-full">
       {isCreatingProfile ? (
-        <div className="p-8 bg-gray-800 rounded-lg shadow-md mx-auto max-w-lg text-white">
+        <div className="p-8 bg-zinc-800 rounded-lg shadow-md mx-auto max-w-lg text-white">
           <h2 className="text-3xl font-bold text-center text-green-500 mb-6">
             Crear Perfil
           </h2>
@@ -251,7 +251,7 @@ const Profile = () => {
                 placeholder="Escribe una breve descripción..."
                 value={formData.bio}
                 onChange={handleEditChange}
-                className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full p-3 rounded-lg bg-zinc-700 text-whitw placeholder-white focus:outline-none focus:ring-2 focus:ring-green-500"
                 required
               />
             </div>
@@ -264,7 +264,7 @@ const Profile = () => {
                 name="birth_date"
                 value={formData.birth_date}
                 onChange={handleEditChange}
-                className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full p-3 rounded-lg bg-zinc-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             </div>
             <div>
@@ -280,7 +280,7 @@ const Profile = () => {
             </div>
             <button
               type="submit"
-              className="w-full py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition duration-200"
+              className="w-full py-3 bg-green-500 text-black font-bold rounded-lg hover:bg-green-600 transition duration-200"
             >
               Crear Perfil
             </button>

@@ -11,13 +11,11 @@ const Cancion = () => {
   const [coverImage, setCoverImage] = useState(null);
   const [genres, setGenres] = useState([]);
   const [albums, setAlbums] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); // Estado para el loader
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Obtener el usuario_id del localStorage
   const user = JSON.parse(localStorage.getItem("user"));
   const artistId = user?.value?.id;
 
-  // Cargar géneros y álbumes al cargar el componente
   useEffect(() => {
     const fetchGenres = async () => {
       try {
@@ -55,7 +53,7 @@ const Cancion = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Inicia el loader
+    setIsLoading(true);
 
     const formData = new FormData();
     formData.append("title", title);
@@ -81,75 +79,106 @@ const Cancion = () => {
       console.error("Error al subir la canción:", error);
       alert("Error al subir la canción");
     } finally {
-      setIsLoading(false); // Detiene el loader
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="song-form-container">
-      <h2>Subir Canción</h2>
-      {isLoading ? ( // Mostrar el loader si está cargando
-        <div className="loader">Subiendo canción...</div>
+    <div className="flex flex-col items-center justify-center h-screen bg-zinc-900 text-green-500 p-6">
+      <h2 className="text-4xl font-bold mb-8">Subir Canción</h2>
+      {isLoading ? (
+        <div className="loader mb-6">Subiendo canción...</div>
       ) : (
-        <form onSubmit={handleSubmit} className="song-form">
-          <label htmlFor="title">Título de la canción</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
+        <form
+          onSubmit={handleSubmit}
+          className="bg-zinc-800 p-8 rounded-lg shadow-lg w-full max-w-lg space-y-6"
+        >
+          <div>
+            <label htmlFor="title" className="block text-lg font-semibold mb-2">
+              Título de la canción
+            </label>
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full px-4 py-2 rounded-lg bg-zinc-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+              required
+            />
+          </div>
 
-          <label htmlFor="genreId">Género</label>
-          <select
-            id="genreId"
-            value={genreId}
-            onChange={(e) => setGenreId(e.target.value)}
-            required
+          <div>
+            <label htmlFor="genreId" className="block text-lg font-semibold mb-2">
+              Género
+            </label>
+            <select
+              id="genreId"
+              value={genreId}
+              onChange={(e) => setGenreId(e.target.value)}
+              className="w-full px-4 py-2 rounded-lg bg-zinc-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+              required
+            >
+              <option value="">Selecciona un género</option>
+              {genres.map((genre) => (
+                <option key={genre.id} value={genre.id}>
+                  {genre.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="albumId" className="block text-lg font-semibold mb-2">
+              Álbum
+            </label>
+            <select
+              id="albumId"
+              value={albumId}
+              onChange={(e) => setAlbumId(e.target.value)}
+              className="w-full px-4 py-2 rounded-lg bg-zinc-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+            >
+              <option value="">Selecciona un álbum</option>
+              {albums.map((album) => (
+                <option key={album.id} value={album.id}>
+                  {album.title}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="songFile" className="block text-lg font-semibold mb-2">
+              Archivo de la canción
+            </label>
+            <input
+              type="file"
+              id="songFile"
+              name="songFile"
+              accept="audio/*"
+              onChange={handleFileChange}
+              className="w-full px-4 py-2 rounded-lg bg-zinc-700 border border-gray-600 focus:outline-none"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="coverImage" className="block text-lg font-semibold mb-2">
+              Portada de la canción
+            </label>
+            <input
+              type="file"
+              id="coverImage"
+              name="coverImage"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="w-full px-4 py-2 rounded-lg bg-zinc-700 border border-gray-600 focus:outline-none"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full py-3 bg-green-500 text-black font-semibold rounded-lg hover:bg-green-600 transition duration-200"
           >
-            <option value="">Selecciona un género</option>
-            {genres.map((genre) => (
-              <option key={genre.id} value={genre.id}>
-                {genre.nombre}
-              </option>
-            ))}
-          </select>
-
-          <label htmlFor="albumId">Álbum</label>
-          <select
-            id="albumId"
-            value={albumId}
-            onChange={(e) => setAlbumId(e.target.value)}
-          >
-            <option value="">Selecciona un álbum</option>
-            {albums.map((album) => (
-              <option key={album.id} value={album.id}>
-                {album.title}
-              </option>
-            ))}
-          </select>
-
-          <label htmlFor="songFile">Archivo de la canción</label>
-          <input
-            type="file"
-            id="songFile"
-            name="songFile"
-            accept="audio/*"
-            onChange={handleFileChange}
-            required
-          />
-
-          <label htmlFor="coverImage">Portada de la canción</label>
-          <input
-            type="file"
-            id="coverImage"
-            name="coverImage"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
-
-          <button type="submit" className="submit-button">
             Subir Canción
           </button>
         </form>

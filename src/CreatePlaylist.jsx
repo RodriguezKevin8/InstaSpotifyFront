@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 const CreatePlaylist = () => {
   const [playlistName, setPlaylistName] = useState("");
   const [coverImage, setCoverImage] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
 
   // Obtener el userId desde localStorage
@@ -20,7 +22,8 @@ const CreatePlaylist = () => {
     e.preventDefault();
 
     if (!userId) {
-      alert("No se ha encontrado el ID del usuario. Inicia sesión nuevamente.");
+      setModalMessage("No se ha encontrado el ID del usuario. Inicia sesión nuevamente.");
+      setShowModal(true);
       return;
     }
 
@@ -40,20 +43,27 @@ const CreatePlaylist = () => {
         }
       );
       console.log("Playlist creada:", response.data);
-      alert("Playlist creada con éxito");
-      navigate("/my-music"); // Navegar de vuelta a la vista de playlist
+      setModalMessage("Playlist creada con éxito");
+      setShowModal(true);
+
+      // Navegar de vuelta a la vista de playlist después de un breve retraso
+      setTimeout(() => {
+        setShowModal(false);
+        navigate("/my-music");
+      }, 2000);
     } catch (error) {
       console.error("Error al crear la playlist:", error);
-      alert("Error al crear la playlist");
+      setModalMessage("Error al crear la playlist");
+      setShowModal(true);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white p-6">
-      <h2 className="text-3xl font-bold mb-6">Crear Nueva Playlist</h2>
+    <div className="flex flex-col items-center justify-center h-screen bg-zinc-900 text-green-500 p-6">
+      <h2 className="text-5xl font-bold mb-6">Crear Nueva Playlist</h2>
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md space-y-6"
+        className="bg-zinc-800 p-8 rounded-lg shadow-lg w-full max-w-md space-y-6"
       >
         <div>
           <label
@@ -67,7 +77,7 @@ const CreatePlaylist = () => {
             id="playlistName"
             value={playlistName}
             onChange={(e) => setPlaylistName(e.target.value)}
-            className="w-full px-4 py-2 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full px-4 py-2 bg-zinc-700 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
             required
           />
         </div>
@@ -85,18 +95,33 @@ const CreatePlaylist = () => {
             name="coverImage"
             accept="image/*"
             onChange={handleFileChange}
-            className="w-full px-4 py-2 bg-gray-700 rounded focus:outline-none"
+            className="w-full px-4 py-2 bg-zinc-700 rounded focus:outline-none"
             required
           />
         </div>
 
         <button
           type="submit"
-          className="w-full py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600 transition duration-200"
+          className="w-full py-2 bg-green-500 text-black font-semibold rounded hover:bg-green-600 transition duration-200"
         >
           Crear
         </button>
       </form>
+
+      {/* Modal de notificación */}
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-zinc-800 text-green-500 p-6 rounded-lg shadow-lg w-80 text-center">
+            <p>{modalMessage}</p>
+            <button
+              onClick={() => setShowModal(false)}
+              className="mt-4 px-4 py-2 bg-green-500 text-black rounded hover:bg-green-600 transition duration-200"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
