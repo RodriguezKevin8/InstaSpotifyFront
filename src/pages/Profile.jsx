@@ -1,4 +1,3 @@
-// Profile.js
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -15,6 +14,7 @@ const Profile = () => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isCreatingProfile, setIsCreatingProfile] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [likedPosts, setLikedPosts] = useState([]);
   const [formData, setFormData] = useState({
@@ -37,16 +37,18 @@ const Profile = () => {
           );
           if (response.data.perfil) {
             setProfileData(response.data);
+            setIsCreatingProfile(false);
             setFormData({
               bio: response.data.perfil.bio || "",
               avatar: null,
               birth_date: response.data.perfil.birth_date || "",
             });
-
-            console.log("Perfil:", response.data);
+          } else {
+            setIsCreatingProfile(true);
           }
         } catch (error) {
           console.error("Error al obtener el perfil:", error);
+          setIsCreatingProfile(true);
         }
       };
 
@@ -56,11 +58,11 @@ const Profile = () => {
             `http://localhost:3000/publicacion/usuario/${userId}`
           );
           setUserPosts(response.data);
-          console.log("Publicaciones:", response.data);
         } catch (error) {
           console.error("Error al obtener las publicaciones:", error);
         }
       };
+
       const fetchSeguimientoData = async () => {
         try {
           const response = await axios.get(
@@ -205,34 +207,83 @@ const Profile = () => {
     setFormData((prev) => ({ ...prev, avatar: e.target.files[0] }));
   };
 
-  const handleEditSubmit = async (e) => {
+  const handleCreateProfile = async (e) => {
     e.preventDefault();
     const userResponse = JSON.parse(localStorage.getItem("user"));
     const userId = userResponse?.value?.id;
 
     if (!userId) return;
 
-    const editData = new FormData();
-    editData.append("bio", formData.bio);
-    editData.append("birth_date", formData.birth_date);
-    if (formData.avatar) {
-      editData.append("avatar_url", formData.avatar);
-    }
+    const data = new FormData();
+    data.append("bio", formData.bio);
+    data.append("birth_date", formData.birth_date);
+    data.append("avatar_url", formData.avatar);
+    data.append("usuario_id", userId);
 
     try {
-      await axios.put(`http://localhost:3000/perfil/${userId}`, editData, {
+      await axios.post("http://localhost:3000/perfil", data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      closeEditModal();
       setReload((prev) => !prev);
     } catch (error) {
-      console.error("Error al actualizar el perfil:", error);
+      console.error("Error al crear el perfil:", error);
     }
   };
 
   return (
     <div className="flex flex-col items-center p-8 w-full">
-      {profileData ? (
+      {isCreatingProfile ? (
+        <div className="p-8 bg-gray-800 rounded-lg shadow-md mx-auto max-w-lg text-white">
+          <h2 className="text-3xl font-bold text-center text-green-500 mb-6">
+            Crear Perfil
+          </h2>
+          <form onSubmit={handleCreateProfile} className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-400 mb-1">
+                Biografía
+              </label>
+              <input
+                type="text"
+                name="bio"
+                placeholder="Escribe una breve descripción..."
+                value={formData.bio}
+                onChange={handleEditChange}
+                className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-400 mb-1">
+                Fecha de Nacimiento
+              </label>
+              <input
+                type="date"
+                name="birth_date"
+                value={formData.birth_date}
+                onChange={handleEditChange}
+                className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-400 mb-1">
+                Foto de Perfil
+              </label>
+              <input
+                type="file"
+                name="avatar"
+                onChange={handleAvatarChange}
+                className="w-full text-gray-400"
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition duration-200"
+            >
+              Crear Perfil
+            </button>
+          </form>
+        </div>
+      ) : profileData ? (
         <div className="flex flex-col items-center text-center space-y-4 w-full max-w-2xl">
           <img
             src={profileData.perfil.avatar_url || "/img/default-avatar.jpg"}
