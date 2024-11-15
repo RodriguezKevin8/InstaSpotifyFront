@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import "./AlbumForm.css";
+import { redirect } from "react-router-dom";
 
 const Album = () => {
   const [title, setTitle] = useState("");
@@ -35,6 +36,7 @@ const Album = () => {
       );
       console.log("Álbum creado:", response.data);
       alert("Álbum subido con éxito");
+      redirect("/add-canciones");
     } catch (error) {
       console.error("Error al subir el álbum:", error);
       alert("Error al subir el álbum");

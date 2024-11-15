@@ -31,7 +31,7 @@ const Player = () => {
   console.log(currentTrack);
 
   return (
-    <div className="bg-gray-800 text-green-500 flex items-center justify-between p-4 w-full">
+    <div className="bg-zinc-800 text-green-500 flex items-center justify-between p-4 w-full">
       <div className="flex items-center">
         <img
           src={currentTrack?.portada_url || "https://via.placeholder.com/50"}

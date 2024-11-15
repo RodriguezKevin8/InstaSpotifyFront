@@ -11,6 +11,7 @@ const Cancion = () => {
   const [coverImage, setCoverImage] = useState(null);
   const [genres, setGenres] = useState([]);
   const [albums, setAlbums] = useState([]);
+  const [isLoading, setIsLoading] = useState(false); // Estado para el loader
 
   // Obtener el usuario_id del localStorage
   const user = JSON.parse(localStorage.getItem("user"));
@@ -54,6 +55,7 @@ const Cancion = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Inicia el loader
 
     const formData = new FormData();
     formData.append("title", title);
@@ -78,74 +80,80 @@ const Cancion = () => {
     } catch (error) {
       console.error("Error al subir la canción:", error);
       alert("Error al subir la canción");
+    } finally {
+      setIsLoading(false); // Detiene el loader
     }
   };
 
   return (
     <div className="song-form-container">
       <h2>Subir Canción</h2>
-      <form onSubmit={handleSubmit} className="song-form">
-        <label htmlFor="title">Título de la canción</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
+      {isLoading ? ( // Mostrar el loader si está cargando
+        <div className="loader">Subiendo canción...</div>
+      ) : (
+        <form onSubmit={handleSubmit} className="song-form">
+          <label htmlFor="title">Título de la canción</label>
+          <input
+            type="text"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
 
-        <label htmlFor="genreId">Género</label>
-        <select
-          id="genreId"
-          value={genreId}
-          onChange={(e) => setGenreId(e.target.value)}
-          required
-        >
-          <option value="">Selecciona un género</option>
-          {genres.map((genre) => (
-            <option key={genre.id} value={genre.id}>
-              {genre.nombre}
-            </option>
-          ))}
-        </select>
+          <label htmlFor="genreId">Género</label>
+          <select
+            id="genreId"
+            value={genreId}
+            onChange={(e) => setGenreId(e.target.value)}
+            required
+          >
+            <option value="">Selecciona un género</option>
+            {genres.map((genre) => (
+              <option key={genre.id} value={genre.id}>
+                {genre.nombre}
+              </option>
+            ))}
+          </select>
 
-        <label htmlFor="albumId">Álbum</label>
-        <select
-          id="albumId"
-          value={albumId}
-          onChange={(e) => setAlbumId(e.target.value)}
-        >
-          <option value="">Selecciona un álbum</option>
-          {albums.map((album) => (
-            <option key={album.id} value={album.id}>
-              {album.title}
-            </option>
-          ))}
-        </select>
+          <label htmlFor="albumId">Álbum</label>
+          <select
+            id="albumId"
+            value={albumId}
+            onChange={(e) => setAlbumId(e.target.value)}
+          >
+            <option value="">Selecciona un álbum</option>
+            {albums.map((album) => (
+              <option key={album.id} value={album.id}>
+                {album.title}
+              </option>
+            ))}
+          </select>
 
-        <label htmlFor="songFile">Archivo de la canción</label>
-        <input
-          type="file"
-          id="songFile"
-          name="songFile"
-          accept="audio/*"
-          onChange={handleFileChange}
-          required
-        />
+          <label htmlFor="songFile">Archivo de la canción</label>
+          <input
+            type="file"
+            id="songFile"
+            name="songFile"
+            accept="audio/*"
+            onChange={handleFileChange}
+            required
+          />
 
-        <label htmlFor="coverImage">Portada de la canción</label>
-        <input
-          type="file"
-          id="coverImage"
-          name="coverImage"
-          accept="image/*"
-          onChange={handleFileChange}
-        />
+          <label htmlFor="coverImage">Portada de la canción</label>
+          <input
+            type="file"
+            id="coverImage"
+            name="coverImage"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
 
-        <button type="submit" className="submit-button">
-          Subir Canción
-        </button>
-      </form>
+          <button type="submit" className="submit-button">
+            Subir Canción
+          </button>
+        </form>
+      )}
     </div>
   );
 };

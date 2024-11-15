@@ -41,7 +41,7 @@ const CreatePlaylist = () => {
       );
       console.log("Playlist creada:", response.data);
       alert("Playlist creada con éxito");
-      navigate("/music"); // Navegar de vuelta a la vista de playlist
+      navigate("/my-music"); // Navegar de vuelta a la vista de playlist
     } catch (error) {
       console.error("Error al crear la playlist:", error);
       alert("Error al crear la playlist");

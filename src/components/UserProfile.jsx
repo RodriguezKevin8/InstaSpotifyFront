@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { FaHeart, FaRegHeart, FaComment } from "react-icons/fa";
+import AlbumsByUserId from "../components/AlbumByUserId.jsx"; // Importamos el componente para mostrar álbumes por usuario
 
 const UserProfile = () => {
   const { userId } = useParams();
@@ -17,6 +18,7 @@ const UserProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [likedPosts, setLikedPosts] = useState([]);
   const [commentText, setCommentText] = useState("");
+  const [activeTab, setActiveTab] = useState("publicaciones"); // Estado para la pestaña activa
   const [reload, setReload] = useState(false);
 
   useEffect(() => {
@@ -76,13 +78,10 @@ const UserProfile = () => {
 
   const handleFollow = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/seguimiento/create",
-        {
-          follower_id: parseInt(currentUserId),
-          followed_id: parseInt(userId),
-        }
-      );
+      await axios.post("http://localhost:3000/seguimiento/create", {
+        follower_id: parseInt(currentUserId),
+        followed_id: parseInt(userId),
+      });
       setIsFollowing(true);
       setReload((prev) => !prev);
     } catch (error) {
@@ -127,7 +126,6 @@ const UserProfile = () => {
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
-
     if (!selectedPost) return;
 
     try {
@@ -241,7 +239,6 @@ const UserProfile = () => {
 
           <p className="text-gray-400">{profileData.perfil.bio || ""}</p>
 
-          {/* Botón de Seguir / Dejar de Seguir */}
           <button
             onClick={handleFollowToggle}
             className={`mt-4 px-4 py-2 rounded ${
@@ -253,29 +250,50 @@ const UserProfile = () => {
             {isFollowing ? "Dejar de seguir" : "Seguir"}
           </button>
 
-          {/* Contenido de publicaciones */}
+          {/* Pestañas para Publicaciones y Álbumes */}
           <div className="flex justify-center mt-6 gap-8 border-b border-gray-500 w-full">
-            <button className="px-4 py-2 text-green-500 border-b-2 border-green-500">
+            <button
+              onClick={() => setActiveTab("publicaciones")}
+              className={`px-4 py-2 ${
+                activeTab === "publicaciones"
+                  ? "text-green-500 border-b-2 border-green-500"
+                  : "text-gray-400"
+              }`}
+            >
               Publicaciones
+            </button>
+            <button
+              onClick={() => setActiveTab("albums")}
+              className={`px-4 py-2 ${
+                activeTab === "albums"
+                  ? "text-green-500 border-b-2 border-green-500"
+                  : "text-gray-400"
+              }`}
+            >
+              Álbumes
             </button>
           </div>
 
           <div className="mt-8 w-full">
-            <div className="grid grid-cols-3 gap-4">
-              {userPosts.map((post) => (
-                <div
-                  key={post.id}
-                  className="relative w-full h-40 bg-gray-800 rounded-lg overflow-hidden cursor-pointer"
-                  onClick={() => openModal(post)}
-                >
-                  <img
-                    src={post.content_url || "/img/default-image.jpg"}
-                    alt="Post"
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-              ))}
-            </div>
+            {activeTab === "publicaciones" ? (
+              <div className="grid grid-cols-3 gap-4">
+                {userPosts.map((post) => (
+                  <div
+                    key={post.id}
+                    className="relative w-full h-40 bg-gray-800 rounded-lg overflow-hidden cursor-pointer"
+                    onClick={() => openModal(post)}
+                  >
+                    <img
+                      src={post.content_url || "/img/default-image.jpg"}
+                      alt="Post"
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <AlbumsByUserId userId={userId} /> // Mostrar álbumes en la pestaña de Álbumes
+            )}
           </div>
         </div>
       ) : (

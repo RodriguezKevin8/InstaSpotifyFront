@@ -27,6 +27,8 @@ import AlbumDetail from "./pages/AlbumDetail.jsx";
 import UserEarnings from "./components/UserEarnings.jsx";
 import { PlayerProvider } from "./contexts/PlayerContext.jsx";
 import "./App.css";
+import RandomAnuncios from "./components/RandomAnuncios.jsx";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const location = useLocation();
@@ -45,26 +47,160 @@ function App() {
             <Route path="/register" element={<Register />} />
           </>
         ) : (
-          // Rutas que usan el Layout y muestran el MusicPlayer
+          // Rutas protegidas que usan el Layout y muestran el MusicPlayer
           <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/create-post" element={<Crete />} />
-            <Route path="/create-playlist" element={<CreatePlaylist />} />
-            <Route path="/explore" element={<Explore />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/notifications" element={<Notification />} />
-            <Route path="/my-music" element={<MyMusic />} />
-            <Route path="/user" element={<UserProfile />} />
-            <Route path="/album" element={<Album />} />
-            <Route path="/add-canciones" element={<Cancion />} />
-            <Route path="/playlist/:playlistId" element={<PlaylistDetail />} />
-            <Route path="/generos" element={<GenreList />} />
-            <Route path="/songs/:genreId" element={<AllSongs />} />
-            <Route path="/albums" element={<AllAlbums />} />
-            <Route path="/album/:albumId" element={<AlbumDetail />} />
-            <Route path="/user/:userId" element={<UserProfile />} />
-            <Route path="/ganancias" element={<UserEarnings />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/create-post"
+              element={
+                <ProtectedRoute>
+                  <Crete />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/create-playlist"
+              element={
+                <ProtectedRoute>
+                  <CreatePlaylist />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/explore"
+              element={
+                <ProtectedRoute>
+                  <Explore />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/search"
+              element={
+                <ProtectedRoute>
+                  <Search />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/notifications"
+              element={
+                <ProtectedRoute>
+                  <Notification />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/my-music"
+              element={
+                <ProtectedRoute>
+                  <MyMusic />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/user"
+              element={
+                <ProtectedRoute>
+                  <UserProfile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/album"
+              element={
+                <ProtectedRoute>
+                  <Album />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/add-canciones"
+              element={
+                <ProtectedRoute>
+                  <Cancion />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/playlist/:playlistId"
+              element={
+                <ProtectedRoute>
+                  <PlaylistDetail />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/generos"
+              element={
+                <ProtectedRoute>
+                  <GenreList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/songs/:genreId"
+              element={
+                <ProtectedRoute>
+                  <AllSongs />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/albums"
+              element={
+                <ProtectedRoute>
+                  <AllAlbums />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/album/:albumId"
+              element={
+                <ProtectedRoute>
+                  <AlbumDetail />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/user/:userId"
+              element={
+                <ProtectedRoute>
+                  <UserProfile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/ganancias"
+              element={
+                <ProtectedRoute>
+                  <UserEarnings />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/anuncios"
+              element={
+                <ProtectedRoute>
+                  <RandomAnuncios />
+                </ProtectedRoute>
+              }
+            />
           </Route>
         )}
       </Routes>
@@ -75,7 +211,6 @@ function App() {
 function AppWrapper() {
   return (
     <PlayerProvider>
-      {" "}
       {/* Envolvemos toda la app en el PlayerProvider */}
       <Router>
         <App />

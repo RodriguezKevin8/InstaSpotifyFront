@@ -2,17 +2,29 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const UserEarnings = ({ userId }) => {
+const UserEarnings = () => {
   const [earnings, setEarnings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // Obtener el userId directamente del localStorage
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userId = user?.value?.id;
+
+    // Verificar si userId es válido antes de hacer la solicitud
+    if (!userId) {
+      setError("ID de usuario no válido");
+      setLoading(false);
+      return;
+    }
+
     const fetchEarnings = async () => {
       try {
         const response = await axios.get(
           `http://localhost:3000/ganancias/${userId}`
         );
+        console.log("Datos de ganancias recibidos:", response.data); // Log para depuración
         setEarnings(response.data);
       } catch (err) {
         console.error("Error al obtener las ganancias:", err);
@@ -23,7 +35,7 @@ const UserEarnings = ({ userId }) => {
     };
 
     fetchEarnings();
-  }, [userId]);
+  }, []);
 
   if (loading) return <p>Cargando ganancias...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
@@ -36,28 +48,26 @@ const UserEarnings = ({ userId }) => {
       </h2>
       <div className="text-gray-300">
         <p>
-          <strong>Ganancias Totales:</strong> $
-          {earnings.total_ganancias?.toFixed(2)}
+          <strong>Ganancias Totales:</strong> ${earnings.total_ganancias}
         </p>
         <p>
           <strong>Ganancias por Canción:</strong> $
-          {earnings.ganancias_por_cancion?.toFixed(2)}
+          {earnings.ganancias_por_cancion}
         </p>
         <p>
-          <strong>Ganancias por Anuncio:</strong> $
-          {earnings.ganancias_por_anuncio?.toFixed(2)}
+          <strong>Ganancias por anuncios:</strong> $
+          {earnings.ganancias_por_anuncio}
         </p>
         <p>
           <strong>Total de Reproducciones:</strong>{" "}
-          {earnings.total_reproducciones}
+          {earnings.total_reproducciones || 0}
         </p>
-        <p>
-          <strong>Monto por Reproducción:</strong> $
-          {earnings.monto_por_reproduccion?.toFixed(2)}
-        </p>
+
         <p>
           <strong>Fecha Última Actualización:</strong>{" "}
-          {new Date(earnings.fecha_actualizacion).toLocaleString()}
+          {earnings.fecha_actualizacion
+            ? new Date(earnings.fecha_actualizacion).toLocaleString()
+            : "No disponible"}
         </p>
       </div>
     </div>

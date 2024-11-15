@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaHeart, FaRegHeart, FaComment } from "react-icons/fa";
-
+import AlbumsByUser from "../components/AlbumByUser.jsx";
 const Profile = () => {
   const [profileData, setProfileData] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
@@ -24,11 +24,10 @@ const Profile = () => {
   });
   const [reload, setReload] = useState(false);
   const navigate = useNavigate();
-
+  const userResponse = JSON.parse(localStorage.getItem("user"));
+  const userId = userResponse?.value?.id;
+  const userRole = userResponse?.value?.role;
   useEffect(() => {
-    const userResponse = JSON.parse(localStorage.getItem("user"));
-    const userId = userResponse?.value?.id;
-
     if (userId) {
       const fetchProfile = async () => {
         try {
@@ -168,6 +167,10 @@ const Profile = () => {
     } catch (error) {
       console.error("Error al dar 'Me gusta':", error);
     }
+  };
+
+  const handleGananciasRedirect = () => {
+    navigate("/ganancias");
   };
 
   const handleUnlike = async () => {
@@ -324,6 +327,16 @@ const Profile = () => {
             >
               Crear Publicación
             </button>
+            {userRole == "Artista" ? (
+              <button
+                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                onClick={handleGananciasRedirect}
+              >
+                Ver ganancias
+              </button>
+            ) : (
+              <></>
+            )}
           </div>
 
           {/* Modal de edición de perfil */}
@@ -385,6 +398,19 @@ const Profile = () => {
             >
               Publicaciones
             </button>
+
+            {userRole === "Artista" && (
+              <button
+                onClick={() => setActiveTab("mi-musica")}
+                className={`px-4 py-2 ${
+                  activeTab === "mi-musica"
+                    ? "text-green-500 border-b-2 border-green-500"
+                    : "text-gray-400"
+                }`}
+              >
+                Mi Música
+              </button>
+            )}
           </div>
 
           <div className="mt-8 w-full">
@@ -406,7 +432,7 @@ const Profile = () => {
               </div>
             ) : (
               <div className="text-gray-400 text-center">
-                No hay publicaciones guardadas
+                <AlbumsByUser /> {/* Componente de álbumes del usuario */}
               </div>
             )}
           </div>
