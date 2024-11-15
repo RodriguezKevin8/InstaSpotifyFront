@@ -62,6 +62,7 @@ function App() {
             <Route path="/songs/:genreId" element={<AllSongs />} />
             <Route path="/albums" element={<AllAlbums />} />
             <Route path="/album/:albumId" element={<AlbumDetail />} />
+            <Route path="/user/:userId" element={<UserProfile />} />
           </Route>
         )}
       </Routes>
