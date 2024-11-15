@@ -24,13 +24,7 @@ const Sidebar = () => {
           <FaCompass className="mr-3" />
           <span>Explore</span>
         </Link>
-        <Link
-          to="/notifications"
-          className="flex items-center py-3 px-4 text-green-500 hover:text-green-300"
-        >
-          <FaHeart className="mr-3" />
-          <span>Notifications</span>
-        </Link>
+
         <Link
           to="/my-music"
           className="flex items-center py-3 px-4 text-green-500 hover:text-green-300"

@@ -1,21 +1,21 @@
-// Explore.js
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Explore = () => {
-  const explorePosts = [
-    { id: 1, image: "/img/post.jpg" },
-    { id: 2, image: "/img/post2.jpg" },
-    { id: 3, image: "/img/post3.jpg" },
-    { id: 4, image: "/img/post4.jpg" },
-    { id: 5, image: "/img/post5.jpg" },
-    { id: 6, image: "/img/post6.jpg" },
-    { id: 7, image: "/img/post7.jpg" },
-    { id: 8, image: "/img/post8.jpg" },
-    { id: 9, image: "/img/post.jpg" },
-    { id: 10, image: "/img/post2.jpg" },
-    { id: 11, image: "/img/post3.jpg" },
-    { id: 12, image: "/img/post4.jpg" },
-  ];
+  const [explorePosts, setExplorePosts] = useState([]);
+
+  useEffect(() => {
+    const fetchExplorePosts = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/publicacion"); // Asegúrate de que esta URL sea la correcta
+        setExplorePosts(response.data); // Se asume que `response.data` contiene directamente el array de publicaciones
+      } catch (error) {
+        console.error("Error fetching explore posts:", error);
+      }
+    };
+
+    fetchExplorePosts();
+  }, []);
 
   return (
     <div className="flex flex-col items-center w-full p-8">
@@ -29,7 +29,7 @@ const Explore = () => {
             className="relative w-full h-48 bg-gray-800 rounded-lg overflow-hidden"
           >
             <img
-              src={post.image}
+              src={post.content_url} // Usamos `content_url` como la URL de la imagen
               alt={`Post ${post.id}`}
               className="object-cover w-full h-full hover:scale-110 transition-transform duration-300"
             />

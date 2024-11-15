@@ -46,7 +46,7 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/notifications" element={<Notification />} />
             <Route path="/my-music" element={<MyMusic />} />
-            <Route path="/user" element={<UserProfile />} />{" "}
+            <Route path="/user/:userId" element={<UserProfile />} />
             {/* Ruta dinámica */}
           </Route>
         )}
