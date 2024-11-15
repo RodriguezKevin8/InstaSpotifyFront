@@ -5,6 +5,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
+import Album from "./Album.jsx";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -17,6 +18,11 @@ import Notification from "./pages/Notification";
 import MyMusic from "./pages/MyMusic";
 import CreatePlaylist from "./CreatePlaylist";
 import UserProfile from "./components/UserProfile";
+import Cancion from "./Cancion.jsx";
+import PlaylistDetail from "./pages/PlaylistDetails.jsx";
+import GenreList from "./pages/GenreList.jsx";
+import AllSongs from "./pages/AllSongs.jsx";
+import { PlayerProvider } from "./contexts/PlayerContext.jsx";
 import "./App.css";
 
 function App() {
@@ -46,8 +52,12 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/notifications" element={<Notification />} />
             <Route path="/my-music" element={<MyMusic />} />
-            <Route path="/user" element={<UserProfile />} />{" "}
-            {/* Ruta dinámica */}
+            <Route path="/user" element={<UserProfile />} />
+            <Route path="/album" element={<Album />} />
+            <Route path="/add-canciones" element={<Cancion />} />
+            <Route path="/playlist/:playlistId" element={<PlaylistDetail />} />
+            <Route path="/generos" element={<GenreList />} />
+            <Route path="/songs/:genreId" element={<AllSongs />} />
           </Route>
         )}
       </Routes>
@@ -57,9 +67,13 @@ function App() {
 
 function AppWrapper() {
   return (
-    <Router>
-      <App />
-    </Router>
+    <PlayerProvider>
+      {" "}
+      {/* Envolvemos toda la app en el PlayerProvider */}
+      <Router>
+        <App />
+      </Router>
+    </PlayerProvider>
   );
 }
 
