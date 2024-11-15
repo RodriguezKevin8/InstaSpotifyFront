@@ -1,13 +1,40 @@
-// src/SearchPage.jsx
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const SearchPage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearchChange = async (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    if (value) {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/usuario/${value}`
+        );
+        if (response.data.status) {
+          setSearchResults(response.data.value);
+        } else {
+          setSearchResults([]);
+        }
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+        setSearchResults([]);
+      }
+    } else {
+      setSearchResults([]);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center w-full p-8">
-      {/* Barra de búsqueda */}
       <div className="flex items-center w-full max-w-md mb-8 border border-gray-300 rounded-lg overflow-hidden">
         <input
           type="text"
+          value={searchTerm}
+          onChange={handleSearchChange}
           placeholder="Search"
           className="w-full px-4 py-2 text-gray-700 outline-none"
         />
@@ -20,53 +47,34 @@ const SearchPage = () => {
         </button>
       </div>
 
-      {/* Resultados de búsqueda */}
       <div className="w-full max-w-lg">
-        <div className="flex items-center mb-4 p-4 bg-gray-800 rounded-lg">
-          <img
-            src="/img/duki.png"
-            alt="Duki"
-            className="w-12 h-12 rounded-full mr-4"
-          />
-          <div>
-            <h3 className="text-white font-semibold text-lg">
-              <Link to="/user">DUKI</Link>
-            </h3>
-            <p className="text-gray-400">
-              Mauro Ezequiel Lombardo - 13.7 M seguidores
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center mb-4 p-4 bg-gray-800 rounded-lg">
-          <img
-            src="/img/BadBunny.jpg"
-            alt="Bad Bunny"
-            className="w-12 h-12 rounded-full mr-4"
-          />
-          <div>
-            <h3 className="text-white font-semibold text-lg">
-              <Link to="/user">BAD_BUNNY</Link>
-            </h3>
-            <p className="text-gray-400">
-              Benito Martínez Ocasio - 45.6 M seguidores
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center mb-4 p-4 bg-gray-800 rounded-lg">
-          <img
-            src="/img/eladio.png"
-            alt="Eladio Carrión"
-            className="w-12 h-12 rounded-full mr-4"
-          />
-          <div>
-            <h3 className="text-white font-semibold text-lg">
-              <Link to="/user">CARION.ELA</Link>
-            </h3>
-            <p className="text-gray-400">Eladio Carrión - 7 M seguidores</p>
-          </div>
-        </div>
+        {searchResults.length > 0
+          ? searchResults.map((user) => (
+              <div
+                key={user.id}
+                className="flex items-center mb-4 p-4 bg-gray-800 rounded-lg"
+              >
+                <img
+                  src={user.perfil?.avatar_url || "/img/default-avatar.jpg"}
+                  alt={user.username}
+                  className="w-12 h-12 rounded-full mr-4"
+                />
+                <div>
+                  <h3 className="text-white font-semibold text-lg">
+                    {console.log(user.id)}
+                    <Link to={`/user/${user.id}`}>{user.username}</Link>
+                  </h3>
+                  <p className="text-gray-400">
+                    {user.nombre} - {user.role}
+                  </p>
+                </div>
+              </div>
+            ))
+          : searchTerm && (
+              <p className="text-gray-400 text-center">
+                No users found for "{searchTerm}"
+              </p>
+            )}
       </div>
     </div>
   );
