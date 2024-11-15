@@ -1,5 +1,6 @@
 // src/contexts/PlayerContext.jsx
 import { createContext, useState, useContext, useRef, useEffect } from "react";
+import axios from "axios";
 
 const PlayerContext = createContext();
 
@@ -46,6 +47,17 @@ export const PlayerProvider = ({ children }) => {
     playTrack(tracks[startIndex], startIndex, tracks);
   };
 
+  // Función para incrementar las ganancias del usuario por reproducción
+  const incrementGanancias = async (artistId) => {
+    try {
+      await axios.post("http://localhost:3000/ganancias/reproduccion", {
+        userId: artistId,
+      });
+    } catch (error) {
+      console.error("Error al incrementar ganancias:", error);
+    }
+  };
+
   // Función para cargar y reproducir una canción específica
   const playTrack = (track, index, tracks) => {
     audioRef.current.pause();
@@ -54,6 +66,15 @@ export const PlayerProvider = ({ children }) => {
     setTrackList(tracks || []);
     setCurrentIndex(index);
     setCurrentTrack(track);
+
+    // Incrementar ganancias para el artista de la canción actual
+    const artistId = track?.usuario_id || track?.artist_id;
+    if (artistId) {
+      console.log("Incrementando ganancias para artist_id:", artistId);
+      incrementGanancias(artistId);
+    } else {
+      console.warn("No se encontró artist_id o usuario_id en track:", track);
+    }
 
     audioRef.current.src = track.file_url; // Asegurarse de que file_url es correcto
     audioRef.current.load();

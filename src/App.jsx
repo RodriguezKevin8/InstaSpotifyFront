@@ -22,6 +22,8 @@ import Cancion from "./Cancion.jsx";
 import PlaylistDetail from "./pages/PlaylistDetails.jsx";
 import GenreList from "./pages/GenreList.jsx";
 import AllSongs from "./pages/AllSongs.jsx";
+import AllAlbums from "./pages/AllAlbums.jsx";
+import AlbumDetail from "./pages/AlbumDetail.jsx";
 import { PlayerProvider } from "./contexts/PlayerContext.jsx";
 import "./App.css";
 
@@ -58,6 +60,8 @@ function App() {
             <Route path="/playlist/:playlistId" element={<PlaylistDetail />} />
             <Route path="/generos" element={<GenreList />} />
             <Route path="/songs/:genreId" element={<AllSongs />} />
+            <Route path="/albums" element={<AllAlbums />} />
+            <Route path="/album/:albumId" element={<AlbumDetail />} />
           </Route>
         )}
       </Routes>

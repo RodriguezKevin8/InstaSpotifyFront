@@ -28,19 +28,25 @@ const Player = () => {
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
-  // Verifica los datos de `currentTrack` para evitar errores de renderizado
-  const trackTitle = currentTrack?.title || "Título desconocido";
-  const trackArtist = currentTrack?.usuario?.nombre || "Artista desconocido";
-  const albumCover =
-    currentTrack?.portada_url || "https://via.placeholder.com/50";
+  console.log(currentTrack);
 
   return (
     <div className="bg-gray-800 text-green-500 flex items-center justify-between p-4 w-full">
       <div className="flex items-center">
-        <img src={albumCover} alt="Album Cover" className="w-12 h-12 mr-4" />
+        <img
+          src={currentTrack?.portada_url || "https://via.placeholder.com/50"}
+          alt="Album Cover"
+          className="w-12 h-12 mr-4"
+        />
         <div>
-          <p className="font-semibold">{trackTitle}</p>
-          <p className="text-sm text-gray-400">{trackArtist}</p>
+          <p className="font-semibold">{currentTrack?.title || "Título"}</p>
+          <p className="text-sm text-gray-400">
+            {currentTrack?.usuario
+              ? typeof currentTrack.usuario === "string"
+                ? currentTrack.usuario
+                : currentTrack.usuario.nombre || "Artista desconocido"
+              : "Artista desconocido"}
+          </p>
         </div>
       </div>
 

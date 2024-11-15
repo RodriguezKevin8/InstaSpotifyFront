@@ -83,10 +83,10 @@ const PlaylistDetail = () => {
         <thead>
           <tr className="border-b border-gray-700">
             <th className="py-2 px-4">#</th>
+            <th className="py-2 px-4"></th>
             <th className="py-2 px-4">Título</th>
             <th className="py-2 px-4">Artista</th>
             <th className="py-2 px-4">Álbum</th>
-            <th className="py-2 px-4 text-right">Añadir</th>
           </tr>
         </thead>
         <tbody>
@@ -98,6 +98,13 @@ const PlaylistDetail = () => {
             >
               <td className="py-2 px-4">{index + 1}</td>
               <td className="py-2 px-4 font-semibold text-white">
+                <img
+                  className="w-12 rounded-md h-12"
+                  src={song.portada_url}
+                  alt=""
+                />
+              </td>
+              <td className="py-2 px-4 font-semibold text-white">
                 {song.title || "Sin título"}
               </td>
               <td className="py-2 px-4">
@@ -105,17 +112,6 @@ const PlaylistDetail = () => {
               </td>
               <td className="py-2 px-4">
                 {song.album?.title || "Álbum desconocido"}
-              </td>
-              <td className="py-2 px-4 text-right">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    // Aquí puedes añadir la función para abrir el modal de añadir a playlist si la implementaste
-                  }}
-                  className="bg-green-500 hover:bg-green-600 text-white p-2 rounded-full"
-                >
-                  <FaPlay size={12} />
-                </button>
               </td>
             </tr>
           ))}
